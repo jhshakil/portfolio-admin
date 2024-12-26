@@ -28,10 +28,7 @@ import { imageUploadDB } from "@/lib/firebaseConfig";
 import { v4 } from "uuid";
 import { useState } from "react";
 import { toast } from "sonner";
-import {
-  useCreateBlogMutation,
-  useUpdateBlogMutation,
-} from "@/redux/features/blog/blogApi";
+import { useUpdateBlogMutation } from "@/redux/features/blog/blogApi";
 import { TBlog } from "@/types";
 
 const FormSchema = z.object({
