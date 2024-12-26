@@ -22,3 +22,17 @@ export type TExperience = {
   description: string;
   priority?: number;
 };
+
+export type TSkill = {
+  id?: string;
+  name: string;
+  percentage: string;
+  color?: string;
+};
+
+export type TSocial = {
+  id?: string;
+  name: string;
+  url: string;
+  icon?: string;
+};
