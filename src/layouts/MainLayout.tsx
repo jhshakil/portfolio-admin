@@ -51,7 +51,9 @@ const MainLayout = () => {
                     <Link to={nav.path}>
                       <Button
                         variant={
-                          currentPath === nav.path ? "default" : "secondary"
+                          `/${currentPath}` === nav.path
+                            ? "default"
+                            : "secondary"
                         }
                         className="w-full"
                       >

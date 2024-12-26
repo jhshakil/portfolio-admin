@@ -4,3 +4,12 @@ export type TUser = {
   iat: number;
   exp: number;
 };
+
+export type TProject = {
+  id?: string;
+  title: string;
+  subTitle: string;
+  technology: string;
+  image?: string;
+  description?: string;
+};
