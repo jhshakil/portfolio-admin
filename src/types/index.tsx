@@ -13,3 +13,12 @@ export type TProject = {
   image?: string;
   description?: string;
 };
+
+export type TExperience = {
+  id?: string;
+  companyName: string;
+  duration: string;
+  designation: string;
+  description: string;
+  priority?: number;
+};

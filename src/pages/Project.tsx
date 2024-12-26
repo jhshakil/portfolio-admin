@@ -24,12 +24,12 @@ export default function Project() {
   const [selectedProject, setSelectedProject] = useState<TProject>();
   const { data: projectData, isLoading } = useGetProjectsQuery(undefined);
 
-  const [deleteFacility] = useDeleteProjectMutation();
+  const [deleteProject] = useDeleteProjectMutation();
 
   if (isLoading) return <p>Loading ...</p>;
 
   const deleteProductData = () => {
-    deleteFacility(selectedProject);
+    deleteProject(selectedProject);
   };
 
   return (
@@ -57,9 +57,10 @@ export default function Project() {
                 <TableCell className="font-medium">{project.title}</TableCell>
                 <TableCell>
                   <p className="max-w-[300px] line-clamp-3 overflow-hidden">
-                    {project.subTitle}
+                    {project.description}
                   </p>
                 </TableCell>
+                <TableCell>{project.subTitle}</TableCell>
                 <TableCell>
                   <img
                     width={50}
@@ -69,7 +70,7 @@ export default function Project() {
                   />
                 </TableCell>
                 <TableCell>{project.technology}</TableCell>
-                <TableCell>{project.description}</TableCell>
+
                 <TableCell>
                   <UpdateProject project={project} />
                   <Button
