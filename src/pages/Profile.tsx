@@ -18,7 +18,13 @@ import { UploadCloud } from "lucide-react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { imageUploadDB } from "@/lib/firebaseConfig";
 import { v4 } from "uuid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  useCreateProfileMutation,
+  useGetProfilesQuery,
+  useUpdateProfileMutation,
+} from "@/redux/features/profile/profileApi";
+import { toast } from "sonner";
 
 const FormSchema = z.object({
   name: z.string().min(1, {
@@ -38,7 +44,11 @@ const FormSchema = z.object({
 });
 
 const Profile = () => {
+  const { data: ProfileData, isLoading } = useGetProfilesQuery(undefined);
+  const [createProfile] = useCreateProfileMutation();
+  const [updateProfile] = useUpdateProfileMutation();
   const [profileImage, setProfileImage] = useState("/fallback.png");
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -54,6 +64,26 @@ const Profile = () => {
       address: "",
     },
   });
+
+  useEffect(() => {
+    if (!isLoading && ProfileData.success) {
+      form.reset({
+        name: ProfileData?.data[0]?.name || "",
+        designation: ProfileData?.data[0]?.designation || "",
+        instruction: ProfileData?.data[0]?.instruction || "",
+        resumeLink: ProfileData?.data[0]?.resumeLink || "",
+        image: ProfileData?.data[0]?.image || "",
+        about: ProfileData?.data[0]?.about || "",
+        phoneNumber: ProfileData?.data[0]?.phoneNumber || "",
+        email: ProfileData?.data[0]?.email || "",
+        language: ProfileData?.data[0]?.language || "",
+        address: ProfileData?.data[0]?.address || "",
+      });
+      if (ProfileData?.data[0]?.image) {
+        setProfileImage(ProfileData?.data[0]?.image);
+      }
+    }
+  }, [ProfileData]);
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -71,7 +101,25 @@ const Profile = () => {
         });
       });
     }
-    console.log(data);
+
+    if (ProfileData.success) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      data.id = ProfileData?.data[0]?.id;
+      const res = await updateProfile(data);
+      if (res?.data) {
+        toast("Profile Update SuccessFully");
+      } else {
+        toast("Profile Update Fail!");
+      }
+    } else {
+      const res = await createProfile(data);
+      if (res?.data) {
+        toast("Profile Create SuccessFully");
+      } else {
+        toast("Profile Create Fail!");
+      }
+    }
   }
 
   return (
@@ -211,8 +259,12 @@ const Profile = () => {
           <div>
             <p className="text-sm font-semibold">Image</p>
             <div className="grid grid-cols-3 justify-between gap-6 mt-2">
-              <div className="w-72 h-72">
-                <img src={profileImage} alt="image" />
+              <div className="w-72 h-72 overflow-hidden">
+                <img
+                  src={profileImage}
+                  alt="image"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <label
