@@ -102,7 +102,7 @@ const Profile = () => {
       });
     }
 
-    if (ProfileData.success) {
+    if (ProfileData.success && ProfileData?.data?.length) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       data.id = ProfileData?.data[0]?.id;
