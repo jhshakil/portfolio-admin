@@ -36,3 +36,10 @@ export type TSocial = {
   url: string;
   icon?: string;
 };
+
+export type TBlog = {
+  id?: string;
+  title: string;
+  image?: string;
+  description?: string;
+};
