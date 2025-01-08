@@ -60,7 +60,7 @@ export default function Project() {
                     {project.description}
                   </p>
                 </TableCell>
-                <TableCell>{project.subTitle}</TableCell>
+                <TableCell>{project.link}</TableCell>
                 <TableCell>
                   <img
                     width={50}

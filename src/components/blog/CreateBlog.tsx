@@ -32,6 +32,7 @@ import { useCreateBlogMutation } from "@/redux/features/blog/blogApi";
 
 const FormSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
+  slug: z.string().min(1, { message: "Slug is required" }),
   description: z.string(),
   image: z.string().optional(),
 });
@@ -44,6 +45,7 @@ export default function CreateBlog() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       title: "",
+      slug: "",
       description: "",
       image: "",
     },
@@ -68,6 +70,7 @@ export default function CreateBlog() {
       toast("Project create successfully");
       form.reset({
         title: "",
+        slug: "",
         description: "",
         image: "",
       });
@@ -96,6 +99,23 @@ export default function CreateBlog() {
                     <FormLabel>Title</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter Title" {...field} />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="slug"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Slug</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter Unique Slug Without Space"
+                        {...field}
+                      />
                     </FormControl>
 
                     <FormMessage />

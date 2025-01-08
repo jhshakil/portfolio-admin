@@ -35,7 +35,7 @@ const FormSchema = z.object({
   id: z.string().optional(),
   title: z.string().min(1, { message: "Title is required" }),
   description: z.string(),
-  subTitle: z.string().min(1, { message: "Sub Title is required" }),
+  link: z.string().min(1, { message: "Link is required" }),
   technology: z.string().min(1, { message: "Technology is required" }),
   image: z.string().optional(),
 });
@@ -54,7 +54,7 @@ export default function UpdateProject({ project }: Props) {
       id: project.id || "",
       title: project.title || "",
       description: project.description || "",
-      subTitle: project.subTitle || "",
+      link: project.link || "",
       technology: project.technology || "",
       image: project.image || "",
     },
@@ -116,12 +116,12 @@ export default function UpdateProject({ project }: Props) {
               />
               <FormField
                 control={form.control}
-                name="subTitle"
+                name="link"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Sub Title</FormLabel>
+                    <FormLabel>Link</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter Sub Title" {...field} />
+                      <Input placeholder="Enter Link" {...field} />
                     </FormControl>
 
                     <FormMessage />

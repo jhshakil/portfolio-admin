@@ -8,7 +8,7 @@ export type TUser = {
 export type TProject = {
   id?: string;
   title: string;
-  subTitle: string;
+  link: string;
   technology: string;
   image?: string;
   description?: string;
@@ -40,6 +40,7 @@ export type TSocial = {
 export type TBlog = {
   id?: string;
   title: string;
+  slug: string;
   image?: string;
   description?: string;
 };

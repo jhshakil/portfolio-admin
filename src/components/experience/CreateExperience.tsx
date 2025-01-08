@@ -53,6 +53,7 @@ export default function CreateExperience() {
     if (res?.data) {
       toast("Experience create successfully");
       setOpen(false);
+      form.reset();
     }
   }
 

@@ -49,6 +49,7 @@ export default function CreateSkill() {
     if (res?.data) {
       toast("Skill create successfully");
       setOpen(false);
+      form.reset();
     }
   }
 

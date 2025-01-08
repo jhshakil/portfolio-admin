@@ -34,6 +34,7 @@ import { TBlog } from "@/types";
 const FormSchema = z.object({
   id: z.string().optional(),
   title: z.string().min(1, { message: "Title is required" }),
+  slug: z.string().min(1, { message: "Slug is required" }),
   description: z.string(),
   image: z.string().optional(),
 });
@@ -51,6 +52,7 @@ export default function UpdateBlog({ blog }: Props) {
     defaultValues: {
       id: blog.id,
       title: blog.title || "",
+      slug: blog.slug || "",
       description: blog.description || "",
       image: blog.image || "",
     },
@@ -75,6 +77,7 @@ export default function UpdateBlog({ blog }: Props) {
       toast("Blog update successfully");
       form.reset({
         title: "",
+        slug: "",
         description: "",
         image: "",
       });
@@ -109,6 +112,23 @@ export default function UpdateBlog({ blog }: Props) {
                     <FormLabel>Title</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter Title" {...field} />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="slug"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Slug</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter Unique Slug Without Space"
+                        {...field}
+                      />
                     </FormControl>
 
                     <FormMessage />
